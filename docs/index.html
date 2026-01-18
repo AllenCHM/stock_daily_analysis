@@ -135,7 +135,7 @@
 
       .stack {
         display: grid;
-        gap: 14px;
+        gap: 10px;
       }
 
       .tag {
@@ -188,6 +188,36 @@
         min-width: 640px;
       }
 
+      .table-cards {
+        display: none;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        background: #fffdf8;
+        display: grid;
+        gap: 8px;
+      }
+
+      .card h4 {
+        margin: 0;
+        font-size: 16px;
+        color: var(--accent);
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card .meta {
+        display: grid;
+        gap: 6px;
+        font-size: 13px;
+      }
+
       .note {
         color: var(--muted);
         font-size: 13px;
@@ -210,30 +240,62 @@
         }
       }
 
-      @media (max-width: 600px) {
+      @media (max-width: 640px) {
         .page {
           padding: 12px;
         }
 
         header {
-          padding: 28px 18px 20px;
+          padding: 24px 18px 18px;
         }
 
         header h1 {
           letter-spacing: 1px;
+          font-size: clamp(24px, 7vw, 32px);
+        }
+
+        header p {
+          font-size: 13px;
         }
 
         main {
-          padding: 18px;
+          padding: 16px;
+          gap: 16px;
         }
 
         section {
-          padding: 18px;
+          padding: 16px;
         }
 
         .title-bar {
           flex-direction: column;
           align-items: flex-start;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        body {
+          line-height: 1.68;
+        }
+
+        .badge {
+          font-size: 11px;
+        }
+
+        .table-wrap {
+          display: none;
+        }
+
+        .table-cards {
+          display: grid;
+          gap: 12px;
+          margin-top: 12px;
         }
       }
     </style>
@@ -413,6 +475,57 @@
                 </tbody>
               </table>
             </div>
+
+            <div class="table-cards">
+              <article class="card">
+                <h4><span class="stock">海格通信</span> · 空头总司令</h4>
+                <div class="meta">
+                  <p>核心看点：全市场都在盯着它的几十亿封单，它开板=情绪回暖发令枪。</p>
+                  <p>操作关键词：不建议接力（观察风向）</p>
+                  <p>潜在风险：继续一字跌停带崩全场</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">航天发展</span> · 老周期龙一</h4>
+                <div class="meta">
+                  <p>核心看点：航天板块的情绪红旗，周五抗跌，若大盘修复，它是反抽急先锋。</p>
+                  <p>操作关键词：深水低吸/做T</p>
+                  <p>潜在风险：补跌破位</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">康强电子</span> · 芯片先锋</h4>
+                <div class="meta">
+                  <p>核心看点：半导体身位板，若能抗住分歧晋级3板，确立芯片短线地位。</p>
+                  <p>操作关键词：弱转强打板</p>
+                  <p>潜在风险：芯片板块冲高回落</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">金风科技</span> · 网红中军</h4>
+                <div class="meta">
+                  <p>核心看点：游资“小群”概念核心，急跌后有反核预期，电力+航天双属性。</p>
+                  <p>操作关键词：翘板/博弈反核</p>
+                  <p>潜在风险：抛压过重，机构出货</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">长电科技</span> · 趋势中军</h4>
+                <div class="meta">
+                  <p>核心看点：机构抱团核心，代表市场从“炒妖”转向“炒业绩/趋势”。</p>
+                  <p>操作关键词：5日线低吸</p>
+                  <p>潜在风险：盘子大，涨速慢</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">三变科技</span> · 电网人气</h4>
+                <div class="meta">
+                  <p>核心看点：周五大面（天地板），周一若能快速修复反包，电网题材可看高一线。</p>
+                  <p>操作关键词：反包/修复</p>
+                  <p>潜在风险：资金核按钮直接A杀</p>
+                </div>
+              </article>
+            </div>
           </section>
 
           <section>
@@ -444,7 +557,7 @@
             <dl>
               <div class="stack">
                 <dt>重点席位（陈小群/大连黄河路）</dt>
-                <dd>目前处于“人人喊打”的舆论风暴眼。其关联个股（海格、金风、<span class="stock">鲁信创投</span>、<span class="stock">三维通信</span>）流动性枯竭。</dd>
+                <dd>目前处于“人人喊打”的舆论风暴眼。其关联个股（<span class="stock">海格通信</span>、<span class="stock">金风科技</span>、<span class="stock">鲁信创投</span>、<span class="stock">三维通信</span>）流动性枯竭。</dd>
               </div>
               <div class="stack">
                 <dt>警惕</dt>
