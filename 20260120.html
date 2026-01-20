@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>明日A股超短作战指挥部</title>
+    <title>昨日A股超短作战指挥部</title>
     <style>
       :root {
         --ink: #1b1b16;
@@ -102,6 +102,18 @@
       .nav-links a.active {
         background: rgba(31, 111, 120, 0.12);
         border-color: rgba(31, 111, 120, 0.3);
+      }
+
+      .nav-label {
+        align-self: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 4px;
+      }
+
+      .nav-links a.date-link {
+        padding: 6px 10px;
+        font-size: 12px;
       }
 
       main {
@@ -333,12 +345,14 @@
     <div class="page">
       <div class="frame">
         <header>
-          <h1>【明日A股超短作战指挥部】</h1>
-          <p>基于市场大数据</p>
+          <h1>【昨日A股超短作战指挥部】</h1>
+          <p></p>
           <div class="meta-line">日期：2026-01-20 · 更新于：2026-01-20 00:46</div>
           <div class="nav-links">
-            <a href="20260119.html">昨日回顾</a>
-            <a class="active" href="index.html">今日作战</a>
+            <span class="nav-label">最近几日：</span>
+            <a class="date-link" href="20260119.html">2026-01-19</a>
+            <a class="date-link active" href="20260120.html">2026-01-20</a>
+            <a class="date-link" href="index.html">2026-01-21</a>
           </div>
         </header>
 
