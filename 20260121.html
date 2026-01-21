@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A股超短作战指挥部 · 2026-01-21</title>
+    <style>
+      :root {
+        --ink: #1b1b16;
+        --muted: #5c5a52;
+        --bg: #f7f1e7;
+        --panel: #fffaf2;
+        --accent: #c54a1d;
+        --accent-2: #1f6f78;
+        --line: #e7dcc9;
+        --shadow: 0 18px 38px rgba(40, 25, 10, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "ZCOOL XiaoWei", "Source Han Serif SC", "STSong", "KaiTi", serif;
+        background: radial-gradient(circle at 15% 10%, #fff4dc 0%, #f7f1e7 45%, #efe5d5 100%);
+        color: var(--ink);
+        line-height: 1.75;
+      }
+
+      .page {
+        min-height: 100vh;
+        background-image: linear-gradient(120deg, rgba(197, 74, 29, 0.08), rgba(31, 111, 120, 0.08));
+        padding: 24px;
+      }
+
+      .frame {
+        max-width: 1080px;
+        margin: 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      header {
+        padding: 56px 56px 40px;
+        background: linear-gradient(120deg, #fff1d6 0%, #f8e4d0 40%, #f1d8c2 100%);
+        border-bottom: 1px solid var(--line);
+        position: relative;
+      }
+
+      header::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(31, 111, 120, 0.18) 0%, rgba(31, 111, 120, 0) 70%);
+        top: -60px;
+        right: 40px;
+        pointer-events: none;
+      }
+
+      header h1 {
+        margin: 0 0 10px;
+        font-size: clamp(30px, 4.6vw, 48px);
+        letter-spacing: 3px;
+      }
+
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .meta-line {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .nav-links {
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        border: 1px solid var(--line);
+        padding: 6px 12px;
+        border-radius: 999px;
+        color: var(--accent-2);
+        background: #fffdf8;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .nav-links a.active {
+        background: rgba(31, 111, 120, 0.12);
+        border-color: rgba(31, 111, 120, 0.3);
+      }
+
+      .nav-label {
+        align-self: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 4px;
+      }
+
+      .nav-links a.date-link {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      main {
+        padding: 36px 56px 64px;
+        display: grid;
+        gap: 24px;
+      }
+
+      section {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px;
+        background: #fffdf8;
+      }
+
+      .title-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 22px;
+        color: var(--accent);
+      }
+
+      .badge {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(197, 74, 29, 0.12);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      h3 {
+        margin-top: 18px;
+        font-size: 18px;
+        color: var(--accent-2);
+      }
+
+      dl {
+        margin: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      dt {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .stack {
+        display: grid;
+        gap: 10px;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(31, 111, 120, 0.12);
+        color: var(--accent-2);
+        font-size: 12px;
+        margin-left: 8px;
+      }
+
+      .stock {
+        display: inline-block;
+        padding: 0 6px;
+        border-radius: 6px;
+        background: rgba(197, 74, 29, 0.15);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 10px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--accent);
+        font-weight: 700;
+        background: rgba(197, 74, 29, 0.06);
+      }
+
+      .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .table-wrap table {
+        min-width: 640px;
+      }
+
+      .table-cards {
+        display: none;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        background: #fffdf8;
+        display: grid;
+        gap: 8px;
+      }
+
+      .card h4 {
+        margin: 0;
+        font-size: 16px;
+        color: var(--accent);
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card .meta {
+        display: grid;
+        gap: 6px;
+        font-size: 13px;
+      }
+
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer {
+        padding: 20px 24px 28px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      @media (max-width: 900px) {
+        header {
+          padding: 40px 28px 28px;
+        }
+
+        main {
+          padding: 24px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding: 12px;
+        }
+
+        header {
+          padding: 24px 18px 18px;
+        }
+
+        header h1 {
+          letter-spacing: 1px;
+          font-size: clamp(24px, 7vw, 32px);
+        }
+
+        header p {
+          font-size: 13px;
+        }
+
+        main {
+          padding: 16px;
+          gap: 16px;
+        }
+
+        section {
+          padding: 16px;
+        }
+
+        .title-bar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        body {
+          line-height: 1.68;
+        }
+
+        .badge {
+          font-size: 11px;
+        }
+
+        .table-wrap {
+          display: none;
+        }
+
+        .table-cards {
+          display: grid;
+          gap: 12px;
+          margin-top: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="frame">
+        <header>
+          <h1>【A股超短作战指挥部】2026-01-21</h1>
+          <p></p>
+          <div class="meta-line">日期：2026-01-21 · 更新于：2026-01-21 03:39</div>
+          <div class="nav-links">
+            <span class="nav-label">最近几日：</span>
+            <a class="date-link" href="20260119.html">2026-01-19</a>
+            <a class="date-link" href="20260120.html">2026-01-20</a>
+            <a class="date-link active" href="20260121.html">2026-01-21</a>
+            <a class="date-link" href="index.html">2026-01-22</a>
+          </div>
+        </header>
+
+        <main>
+          <section>
+            <div class="title-bar">
+              <h2>一、市场情绪风向标</h2>
+              <span class="badge">冰点试错</span>
+            </div>
+            <dl>
+              <div class="stack">
+                <dt>情绪温度</dt>
+                <dd><strong>30分</strong>（退潮期后的冰点试错，混沌轮动）。</dd>
+              </div>
+              <div class="stack">
+                <dt>核心特征</dt>
+                <dd><strong>老周期（商业航天/AI）甚至A杀补跌，资金高低切换明显，避险属性爆发（化工/电网/红利）。</strong> 连板高度出现断层（15板锋龙独舞，中间断档，直接掉到3板）。</dd>
+              </div>
+              <div class="stack">
+                <dt>关键变量</dt>
+                <dd>
+                  1) <span class="stock">利欧股份</span>（002131）：明日复牌。若被巨单核死，AI应用继续退潮；若有承接开板，利好老周期修复。<br />
+                  2) <span class="stock">中国西电</span>（601179）：电网容量中军。今日尾盘炸板，明日若能反包修复，电网主线确立；若补跌，则电网沦为一日游轮动。<br />
+                  3) <span class="stock">海格通信</span>（002465）：商业航天前空头司令。今日开板但未止跌，明日必须红盘企稳，否则老周期无反抽预期。
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section>
+            <div class="title-bar">
+              <h2>二、核心题材梯队复盘 (Top 5)</h2>
+              <span class="badge">热度排序</span>
+            </div>
+
+            <h3>1. ⚡ 智能电网 / 特高压 <span class="tag">热度NO.1</span></h3>
+            <dl>
+              <div class="stack">
+                <dt>当前阶段</dt>
+                <dd><strong>强分歧 / 淘汰赛</strong>（受“十五五”4万亿投资预期刺激，但今日尾盘受商业航天回流及获利盘砸盘影响，出现炸板潮，明日面临残酷PK）。</dd>
+              </div>
+              <div class="stack">
+                <dt>核心逻辑</dt>
+                <dd>政策确定性高 + 中特估属性 + 避险资金承接。</dd>
+              </div>
+              <div class="stack">
+                <dt>作战股票池（重点扩容）</dt>
+                <dd>
+                  👑 龙头/高标：<span class="stock">汉缆股份</span>（3板，一字最强）、<span class="stock">森源电气</span>（3板，一字跟随）、<span class="stock">广电电气</span>（3板，唯一换手板，博弈卡位）。<br />
+                  🛡️ 中军/容量：<span class="stock">中国西电</span>（核心中军，需关注修复）、<span class="stock">特变电工</span>（大容量，尾盘跳水严重）、<span class="stock">保变电气</span>（人气老妖）、<span class="stock">三变科技</span>（股性活，反包预期）。<br />
+                  ⚡ 弹性/套利：<span class="stock">双杰电气</span>（20cm，创业板前排）、<span class="stock">红相股份</span>（债股联动）。<br />
+                  🌱 低位/补涨：<span class="stock">新联电子</span>（2板，卡位预期）、<span class="stock">南网能源</span>（首板，低价）、<span class="stock">鼎信通讯</span>。
+                </dd>
+              </div>
+              <div class="stack">
+                <dt>明日策略</dt>
+                <dd><strong>去弱留强。</strong> 观察前排3板谁能抗住分歧晋级4板（汉缆和森源的一字是否松动，广电能否弱转强）。中军西电若深水低开则板块危矣，若平开走高可低吸。</dd>
+              </div>
+            </dl>
+
+            <h3>2. 🧪 化工 / 涨价概念 <span class="tag">热度NO.2</span></h3>
+            <dl>
+              <div class="stack">
+                <dt>当前阶段</dt>
+                <dd><strong>启动 / 发酵</strong>（典型的退潮期避险 + 涨价业绩逻辑：环氧丙烷、粘胶等）。</dd>
+              </div>
+              <div class="stack">
+                <dt>核心逻辑</dt>
+                <dd>行业巨头提价 + 出口退税政策 + 年报预增避险。</dd>
+              </div>
+              <div class="stack">
+                <dt>作战股票池</dt>
+                <dd>
+                  👑 龙头/高标：<span class="stock">沧州大化</span>（2板，身位龙，TDI涨价）、<span class="stock">新乡化纤</span>（2板，趋势加速，氨纶）。<br />
+                  🛡️ 中军/容量：<span class="stock">中国化学</span>（中特估叠加，趋势中军）、<span class="stock">万华化学</span>（行业茅）。<br />
+                  ⚡ 弹性/套利：<span class="stock">江天化学</span>（20cm首板，甲醇）、<span class="stock">美邦科技</span>（30cm北交所龙头）。<br />
+                  🌱 低位/补涨：<span class="stock">红宝丽</span>（首板，环氧丙烷老妖）、<span class="stock">中毅达</span>（首板，老妖股记忆）、<span class="stock">维远股份</span>、<span class="stock">红墙股份</span>。
+                </dd>
+              </div>
+              <div class="stack">
+                <dt>明日策略</dt>
+                <dd><strong>打板确认。</strong> 关注<span class="stock">沧州大化</span>或<span class="stock">新乡化纤</span>能否快速上3板卡位电网。首板助攻如果能维持5家以上，可关注<span class="stock">红宝丽</span>等老妖股的1进2机会。</dd>
+              </div>
+            </dl>
+
+            <h3>3-5. 轮动与潜力支线 <span class="tag">简要</span></h3>
+            <dl>
+              <div class="stack">
+                <dt>3. 🚀 商业航天（老主线反抽）</dt>
+                <dd>核心股：<span class="stock">九鼎新材</span>（2板，活口穿越，叠加化工）、<span class="stock">航发科技</span>（2板，发动机）、<span class="stock">信维通信</span>（趋势活口，抗跌）、<span class="stock">航天电子</span>（尾盘抢筹）。逻辑：跌幅巨大后的超跌反抽，博弈海格通信止跌后的回流，但套牢盘重，只适合低吸核心，不宜追高。</dd>
+              </div>
+              <div class="stack">
+                <dt>4. 🤖 AI应用（受利欧复牌影响）</dt>
+                <dd>核心股：<span class="stock">浙文互联</span>（首板一字，想救主）、<span class="stock">志特新材</span>（20cm趋势妖，无视监管）、<span class="stock">蓝色光标</span>（中军，抗跌）、<span class="stock">易点天下</span>（复牌跌停，负反馈源）。逻辑：明日利欧复牌大概率补跌，若利欧和易点能开板，板块有修复预期；若封死跌停，仅看浙文互联和志特新材的独立抱团。</dd>
+              </div>
+              <div class="stack">
+                <dt>5. 📼 半导体 / 芯片（机构趋势）</dt>
+                <dd>核心股：<span class="stock">锋龙股份</span>（15板，机器人+芯片重组）、<span class="stock">盈方微</span>（复牌一字）、<span class="stock">江化微</span>（2板，光刻胶）、<span class="stock">通富微电</span>/<span class="stock">长电科技</span>（封测中军，趋势）。逻辑：机构资金抱团取暖，走趋势为主，适合大资金做T。</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section>
+            <div class="title-bar">
+              <h2>三、个股“点将台” (高权重共识榜)</h2>
+              <span class="badge">重点个股</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>股票名称</th>
+                    <th>题材/属性</th>
+                    <th>角色定位</th>
+                    <th>核心看点/逻辑</th>
+                    <th>操作关键词</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="stock">锋龙股份</span></td>
+                    <td>机器人+重组</td>
+                    <td>市场总龙</td>
+                    <td>15连板穿越周期，已成妖，无视板块调整，纯情绪博弈。带动了嘉美包装等重组线。</td>
+                    <td><strong>持股/观赏</strong></td>
+                  </tr>
+                  <tr>
+                    <td><span class="stock">广电电气</span></td>
+                    <td>电网设备</td>
+                    <td>换手先锋</td>
+                    <td>3板梯队中唯一的换手板，若两只一字龙头（汉缆/森源）分歧，广电有机会卡位晋级。</td>
+                    <td><strong>弱转强/卡位</strong></td>
+                  </tr>
+                  <tr>
+                    <td><span class="stock">浙文互联</span></td>
+                    <td>AI应用</td>
+                    <td>围魏救赵</td>
+                    <td>竞价超预期一字，试图为利欧复牌造势。明日若能抗住利欧补跌压力继续封板，则成AI新龙。</td>
+                    <td><strong>观察封单</strong></td>
+                  </tr>
+                  <tr>
+                    <td><span class="stock">九鼎新材</span></td>
+                    <td>航天+化工</td>
+                    <td>双料活口</td>
+                    <td>叠加了当下最强的化工属性和老主线航天的活口身份，分时主动性强，有穿越气质。</td>
+                    <td><strong>爆量回封</strong></td>
+                  </tr>
+                  <tr>
+                    <td><span class="stock">沧州大化</span></td>
+                    <td>化工</td>
+                    <td>周期龙头</td>
+                    <td>化工涨价急先锋，股性活跃，叠加国企改革，是化工能否成为主线的试金石。</td>
+                    <td><strong>打板确认</strong></td>
+                  </tr>
+                  <tr>
+                    <td><span class="stock">志特新材</span></td>
+                    <td>AI应用</td>
+                    <td>20cm妖股</td>
+                    <td>在监管高压下不断新高，代表了资金对20cm弹性的极致抱团，类似之前的双成。</td>
+                    <td><strong>低吸/做T</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-cards">
+              <article class="card">
+                <h4><span class="stock">锋龙股份</span> · 市场总龙</h4>
+                <div class="meta">
+                  <p>题材：机器人+重组</p>
+                  <p>角色：市场总龙</p>
+                  <p>看点：15连板穿越周期，已成妖，无视板块调整，纯情绪博弈。带动了嘉美包装等重组线。</p>
+                  <p>操作：持股/观赏</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">广电电气</span> · 换手先锋</h4>
+                <div class="meta">
+                  <p>题材：电网设备</p>
+                  <p>角色：换手先锋</p>
+                  <p>看点：3板梯队中唯一的换手板，若两只一字龙头（汉缆/森源）分歧，广电有机会卡位晋级。</p>
+                  <p>操作：弱转强/卡位</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">浙文互联</span> · 围魏救赵</h4>
+                <div class="meta">
+                  <p>题材：AI应用</p>
+                  <p>角色：围魏救赵</p>
+                  <p>看点：竞价超预期一字，试图为利欧复牌造势。明日若能抗住利欧补跌压力继续封板，则成AI新龙。</p>
+                  <p>操作：观察封单</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">九鼎新材</span> · 双料活口</h4>
+                <div class="meta">
+                  <p>题材：航天+化工</p>
+                  <p>角色：双料活口</p>
+                  <p>看点：叠加了当下最强的化工属性和老主线航天的活口身份，分时主动性强，有穿越气质。</p>
+                  <p>操作：爆量回封</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">沧州大化</span> · 周期龙头</h4>
+                <div class="meta">
+                  <p>题材：化工</p>
+                  <p>角色：周期龙头</p>
+                  <p>看点：化工涨价急先锋，股性活跃，叠加国企改革，是化工能否成为主线的试金石。</p>
+                  <p>操作：打板确认</p>
+                </div>
+              </article>
+              <article class="card">
+                <h4><span class="stock">志特新材</span> · 20cm妖股</h4>
+                <div class="meta">
+                  <p>题材：AI应用</p>
+                  <p>角色：20cm妖股</p>
+                  <p>看点：在监管高压下不断新高，代表了资金对20cm弹性的极致抱团，类似之前的双成。</p>
+                  <p>操作：低吸/做T</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <div class="title-bar">
+              <h2>四、顶级游资/大佬动向复盘</h2>
+              <span class="badge">席位追踪</span>
+            </div>
+            <dl>
+              <div class="stack">
+                <dt>多空态度</dt>
+                <dd>游资撤退，量化主导。顶级游资（如陈小群）在老周期（航天/AI）上大举出货或被套，出手频率极低。市场目前由量化资金主导电网和化工的轮动。</dd>
+              </div>
+              <div class="stack">
+                <dt>重点席位/ID追踪</dt>
+                <dd>
+                  陈小群：大举卖出<span class="stock">三维通信</span>（2.9亿），处于防守清仓状态。<br />
+                  章盟主：小仓位打野，买入<span class="stock">中微半导</span>、<span class="stock">江天化学</span>，卖出<span class="stock">铁流股份</span>。<br />
+                  桑田路：买入<span class="stock">九鼎新材</span>（博弈跨界穿越）。<br />
+                  机构：买入<span class="stock">招金黄金</span>（避险），卖出<span class="stock">博迁新材</span>。
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section>
+            <div class="title-bar">
+              <h2>五、明日剧本推演与风控</h2>
+              <span class="badge">三线推演</span>
+            </div>
+            <dl>
+              <div class="stack">
+                <dt>进攻剧本（小概率）</dt>
+                <dd>
+                  <span class="stock">利欧股份</span>复牌虽然跌停但封单不大，甚至盘中开板。<br />
+                  电网前排（<span class="stock">汉缆</span>/<span class="stock">森源</span>/<span class="stock">广电</span>）强势晋级2家以上，<span class="stock">中国西电</span>反包修复，确立主线地位。<br />
+                  化工板块<span class="stock">沧州大化</span>、<span class="stock">新乡化纤</span>大单封死，板块继续高潮。
+                </dd>
+              </div>
+              <div class="stack">
+                <dt>防守剧本（大概率）</dt>
+                <dd>
+                  <span class="stock">利欧股份</span>、<span class="stock">易点天下</span>继续大单跌停，带崩AI和科技股。<br />
+                  电网板块大幅分化，前排炸板，中军西电低开低走。<br />
+                  资金继续流向红利、银行、贵金属（<span class="stock">湖南白银</span>等）避险。
+                </dd>
+              </div>
+              <div class="stack">
+                <dt>避雷针（风险提示）</dt>
+                <dd>
+                  老周期核心：<span class="stock">海格通信</span>、<span class="stock">航天发展</span>等若明日不能有效止跌，千万别轻易抄底，防止“A杀”继续。<br />
+                  伪强势股：今日尾盘跟风回流但无逻辑支撑的电网/航天后排股，明日早盘容易直接被核。<br />
+                  监管风险：<span class="stock">锋龙股份</span>15板位置极高，随时有特停风险，仅适合目送。
+                </dd>
+              </div>
+            </dl>
+          </section>
+        </main>
+
+        <footer>
+          更新于：今日版 · 明日A股超短作战指挥部
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
