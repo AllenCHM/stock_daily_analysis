@@ -340,6 +340,88 @@
         }
       }
     </style>
+  
+
+    <style>
+      .auth-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 12, 8, 0.72);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        backdrop-filter: blur(4px);
+      }
+      .auth-card {
+        width: min(420px, 92vw);
+        background: #fffaf2;
+        border: 1px solid #e7dcc9;
+        border-radius: 18px;
+        box-shadow: 0 18px 38px rgba(40, 25, 10, 0.18);
+        padding: 22px;
+        font-family: "ZCOOL XiaoWei", "Source Han Serif SC", "STSong", "KaiTi", serif;
+        color: #1b1b16;
+      }
+      .auth-title {
+        margin: 0 0 8px;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+      .auth-desc {
+        margin: 0 0 16px;
+        font-size: 13px;
+        color: #5c5a52;
+      }
+      .auth-input {
+        width: 100%;
+        border: 1px solid #e7dcc9;
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 14px;
+        background: #fffdf8;
+        outline: none;
+      }
+      .auth-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 14px;
+        gap: 12px;
+      }
+      .auth-error {
+        color: #c54a1d;
+        font-size: 12px;
+        min-height: 16px;
+      }
+      .auth-btn {
+        border: 1px solid #1f6f78;
+        background: #1f6f78;
+        color: #fff;
+        font-size: 13px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .auth-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .auth-reset {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        border: 1px solid #e7dcc9;
+        background: #fffdf8;
+        color: #1f6f78;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        z-index: 9998;
+        box-shadow: 0 12px 24px rgba(40, 25, 10, 0.12);
+      }
+    </style>
   </head>
   <body>
     <div class="page">
@@ -360,9 +442,23 @@
             <a class="date-link" href="20260128.html">2026-01-28</a>
             <a class="date-link" href="20260129.html">2026-01-29</a>
             <a class="date-link" href="20260130.html">2026-01-30</a>
-            <a class="date-link" href="index.html">2026-02-02</a>
+            <a class="date-link" href="20260202.html">2026-02-02</a>
+            <a class="date-link" href="20260203.html">2026-02-03</a>
           </div>
         </header>
+
+
+    <div class="auth-overlay" id="authOverlay" aria-hidden="true">
+      <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <h2 class="auth-title" id="authTitle">访问验证</h2>
+        <p class="auth-desc">请输入访问密码以继续浏览。</p>
+        <input class="auth-input" id="authInput" type="password" placeholder="请输入密码" autocomplete="current-password" />
+        <div class="auth-actions">
+          <div class="auth-error" id="authError"></div>
+          <button class="auth-btn" id="authBtn">确认</button>
+        </div>
+      </div>
+    </div>
 
         <main>
           <section>
@@ -669,5 +765,85 @@
         </footer>
       </div>
     </div>
+  
+
+    <button class="auth-reset" id="authReset" type="button">清除授权</button>
+
+    <script>
+      (function () {
+        var key = "stock_daily_analysis_auth";
+        var expected = "Allen1234@";
+        var expiryMs = 604800000;
+        var overlay = document.getElementById("authOverlay");
+        var input = document.getElementById("authInput");
+        var btn = document.getElementById("authBtn");
+        var error = document.getElementById("authError");
+        var reset = document.getElementById("authReset");
+
+        function setAuth() {
+          try {
+            localStorage.setItem(key, JSON.stringify({ ok: true, ts: Date.now() }));
+          } catch (e) {}
+        }
+
+        function clearAuth() {
+          try {
+            localStorage.removeItem(key);
+          } catch (e) {}
+        }
+
+        function isValidAuth() {
+          try {
+            var raw = localStorage.getItem(key);
+            if (!raw) return false;
+            var data = JSON.parse(raw);
+            if (!data || !data.ok || !data.ts) return false;
+            return (Date.now() - data.ts) <= expiryMs;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function showOverlay() {
+          overlay.style.display = "flex";
+          overlay.setAttribute("aria-hidden", "false");
+          if (input) input.focus();
+        }
+
+        function hideOverlay() {
+          overlay.style.display = "none";
+          overlay.setAttribute("aria-hidden", "true");
+        }
+
+        function check() {
+          var value = input.value || "";
+          if (value === expected) {
+            error.textContent = "";
+            setAuth();
+            hideOverlay();
+          } else {
+            error.textContent = "密码错误，请重试。";
+          }
+        }
+
+        if (isValidAuth()) {
+          hideOverlay();
+        } else {
+          clearAuth();
+          showOverlay();
+        }
+
+        btn.addEventListener("click", check);
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            check();
+          }
+        });
+        reset.addEventListener("click", function () {
+          clearAuth();
+          showOverlay();
+        });
+      })();
+    </script>
   </body>
 </html>
